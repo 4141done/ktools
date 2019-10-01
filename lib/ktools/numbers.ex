@@ -1,4 +1,5 @@
 defmodule Ktools.Numbers do
+  alias Ktools.Knum
   @moduledoc """
   The Numbers context.
   """
@@ -13,6 +14,11 @@ defmodule Ktools.Numbers do
 
   """
   def to_int(string_num) do
-    Ktools.Knum.to_int(string_num)
+    Knum.to_int(string_num)
+  end
+
+  def bulk_to_int(convert_list) do
+    convert_list
+    |> Enum.map(&Knum.to_int/1)
   end
 end
