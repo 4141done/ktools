@@ -11,11 +11,35 @@ import css from "../css/app.css"
 //
 import "phoenix_html"
 
-import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view"
+const Hooks = {};
 
-let liveSocket = new LiveSocket("/live", Socket)
-liveSocket.connect()
+Hooks.CopyTarget = {
+  mounted() {
+    this.el.addEventListener('click', e => {
+      const resultId = this.el.getAttribute('data-result-id');
+      const copySource = document.querySelector(`#${resultId}`);
+      const copyButtonOriginalText = this.el.innerHTML;
+      const successText = this.el.getAttribute('data-success-text');
+
+      copySource.select();
+      document.execCommand("copy");
+
+      if (successText) {
+        this.el.innerHTML = successText;
+
+        setTimeout(() => {
+          this.el.innerHTML = copyButtonOriginalText;
+        }, 1000);
+      }
+    });
+  }
+};
+
+import {Socket} from "phoenix";
+import LiveSocket from "phoenix_live_view";
+
+let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks});
+liveSocket.connect();
 
 // Import local files
 //

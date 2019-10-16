@@ -5,7 +5,7 @@ defmodule KtoolsWeb.BulkNumbersView do
 
   def render(assigns) do
     ~L"""
-    <div class="">
+    <div>
       <h1>한글 -> 숫자</h1>
       <div>
         <label for="한글">한글</label>
@@ -15,8 +15,9 @@ defmodule KtoolsWeb.BulkNumbersView do
       <div>
         <h2>숫자</h2>
         <div>
-          <textarea id="result" id="result-box" rows="5" cols="33"><%= @result %></textarea>
+          <textarea id="result-box" rows="5" cols="33"><%= @result %></textarea>
         </div>
+        <button phx-hook="CopyTarget" data-result-id="result-box" data-success-text="복사됨!">복사</button>
       </div>
     </div>
     """
